@@ -5,7 +5,7 @@ model_name: Hi-VT5
 model_weights: rubentito/hivt5-base-mpdocvqa
 freeze_encoder: False
 page_tokens: 10
-device: cuda
+device: CPU
 use_spatial_features: True
 use_visual_features: True
 data_parallel: False
@@ -16,10 +16,10 @@ retrieval_module:
   loss_weight: 0.25
 
 visual_module:
-  model: dit  # 'vit' / 'dit'
+  model: vit  # 'vit' / 'dit'
   finetune: false
-  model_weights: microsoft/dit-base-finetuned-rvlcdip  # 'google/vit-base-patch16-224-in21k' / 'microsoft/dit-base-finetuned-rvlcdip'
-  # model_weights: rubentito/hivt5-base-mpdocvqa
+  # model_weights: microsoft/dit-base-finetuned-rvlcdip  # 'google/vit-base-patch16-224-in21k' / 'microsoft/dit-base-finetuned-rvlcdip'
+  model_weights: rubentito/hivt5-base-mpdocvqa
 
 training_parameters:
   max_pages: 2
