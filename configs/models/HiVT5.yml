@@ -5,7 +5,7 @@ model_name: Hi-VT5
 model_weights: rubentito/hivt5-base-mpdocvqa
 freeze_encoder: False
 page_tokens: 1
-device: CPU
+device: cpu
 use_spatial_features: True
 use_visual_features: True
 data_parallel: False
