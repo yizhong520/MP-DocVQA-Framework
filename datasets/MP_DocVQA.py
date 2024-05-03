@@ -14,6 +14,7 @@ class MPDocVQA(Dataset):
         data = np.load(os.path.join(imbd_dir, "imdb_{:s}.npy".format(split)), allow_pickle=True)
         self.header = data[0]
         self.imdb = data[1:]
+        print(self.imdb)
 
         self.page_retrieval = page_retrieval.lower()
         assert(self.page_retrieval in ['oracle', 'concat', 'logits', 'custom'])
@@ -40,7 +41,7 @@ class MPDocVQA(Dataset):
                 if record['question_id'] == question_id:
                     return self.__getitem__(idx)
 
-            raise ValueError("Question ID {:d} not in dataset.".format(question_id))
+            raise ValueError("Question ID {:d} not in datasettest.".format(question_id))
 
         idx = random.randint(0, self.__len__())
         return self.__getitem__(idx)
