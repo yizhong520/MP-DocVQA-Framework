@@ -83,7 +83,7 @@ if __name__ == '__main__':
     config = load_config(args)
     start_time = time.time()
 
-    dataset = build_dataset(config, 'test')
+    dataset = build_dataset(config, 'val')
     val_data_loader = DataLoader(dataset, batch_size=config['batch_size'], shuffle=False, collate_fn=singlepage_docvqa_collate_fn)
 
     model = build_model(config)
