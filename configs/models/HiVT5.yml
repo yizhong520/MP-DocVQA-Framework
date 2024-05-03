@@ -22,7 +22,7 @@ visual_module:
   model_weights: rubentito/hivt5-base-mpdocvqa
 
 training_parameters:
-  max_pages: 2
+  max_pages: 1
   lr: 2e-4  # 2e-4
   batch_size: 2
   train_epochs: 10
