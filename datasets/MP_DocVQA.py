@@ -202,32 +202,32 @@ class MPDocVQA(Dataset):
 
     def get_pages(self, sample_info):
         # TODO implement margins
-        answer_page = sample_info['answer_page_idx']
-        document_pages = sample_info['imdb_doc_pages']
-        if document_pages <= self.max_pages:
-            first_page, last_page = 0, document_pages
+        # answer_page = sample_info['answer_page_idx']
+        document_pages = 1
+        # if document_pages <= self.max_pages:
+        #     first_page, last_page = 0, document_pages
 
-        else:
-            first_page_lower_bound = max(0, answer_page-self.max_pages+1)
-            first_page_upper_bound = answer_page
-            first_page = random.randint(first_page_lower_bound, first_page_upper_bound)
-            last_page = first_page + self.max_pages
+        # else:
+        #     first_page_lower_bound = max(0, answer_page-self.max_pages+1)
+        #     first_page_upper_bound = answer_page
+        #     first_page = random.randint(first_page_lower_bound, first_page_upper_bound)
+        #     last_page = first_page + self.max_pages
 
-            if last_page > document_pages:
-                last_page = document_pages
-                first_page = last_page-self.max_pages
+        #     if last_page > document_pages:
+        #         last_page = document_pages
+        #         first_page = last_page-self.max_pages
 
-            try:
-                assert(answer_page in range(first_page, last_page))  # answer page is in selected range.
-                assert(last_page-first_page == self.max_pages)  # length of selected range is correct.
-            except:
-                assert (answer_page in range(first_page, last_page))  # answer page is in selected range.
-                assert (last_page - first_page == self.max_pages)  # length of selected range is correct.
-        # print("[{:d} <= {:d} < {:d}][{:d} + {:d}]".format(first_page, answer_page, last_page, len(range(first_page, last_page)), padding_pages))
-        assert(answer_page in range(first_page, last_page))
-        assert(first_page >= 0)
-        assert(last_page <= document_pages)
-
+        #     try:
+        #         assert(answer_page in range(first_page, last_page))  # answer page is in selected range.
+        #         assert(last_page-first_page == self.max_pages)  # length of selected range is correct.
+        #     except:
+        #         assert (answer_page in range(first_page, last_page))  # answer page is in selected range.
+        #         assert (last_page - first_page == self.max_pages)  # length of selected range is correct.
+        # # print("[{:d} <= {:d} < {:d}][{:d} + {:d}]".format(first_page, answer_page, last_page, len(range(first_page, last_page)), padding_pages))
+        # assert(answer_page in range(first_page, last_page))
+        # assert(first_page >= 0)
+        # assert(last_page <= document_pages)
+        first_page, last_page = 0, document_pages
         return first_page, last_page
 
 
