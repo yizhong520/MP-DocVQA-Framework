@@ -685,7 +685,7 @@ class Proxy_HiVT5:
         question_id = batch['question_id']
         answers = batch['answers']
         num_pages = batch['num_pages']
-        # answer_page_idx = torch.LongTensor(batch['answer_page_idx']).to(self.device)
+        answer_page_idx = torch.LongTensor(batch['answer_page_idx']).to(self.device)
 
         bs = len(question_id)
         if self.page_retrieval == 'oracle':

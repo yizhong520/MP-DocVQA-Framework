@@ -14,7 +14,6 @@ class MPDocVQA(Dataset):
         data = np.load(os.path.join(imbd_dir, "imdb_{:s}.npy".format(split)), allow_pickle=True)
         self.header = data[0]
         self.imdb = data[1:]
-        print(self.imdb)
 
         self.page_retrieval = page_retrieval.lower()
         assert(self.page_retrieval in ['oracle', 'concat', 'logits', 'custom'])
@@ -41,7 +40,7 @@ class MPDocVQA(Dataset):
                 if record['question_id'] == question_id:
                     return self.__getitem__(idx)
 
-            raise ValueError("Question ID {:d} not in datasettest.".format(question_id))
+            raise ValueError("Question ID {:d} not in dataset.".format(question_id))
 
         idx = random.randint(0, self.__len__())
         return self.__getitem__(idx)
@@ -51,8 +50,8 @@ class MPDocVQA(Dataset):
 
         question = record['question']
         answers = list(set(answer.lower() for answer in record['answers']))
-        # answer_page_idx = record['answer_page_idx']
-        num_pages = 1
+        answer_page_idx = record['answer_page_idx']
+        num_pages = record['imdb_doc_pages']
 
         if self.page_retrieval == 'oracle':
             context = ' '.join([word.lower() for word in record['ocr_tokens'][answer_page_idx]])
@@ -162,24 +161,24 @@ class MPDocVQA(Dataset):
                        'contexts': context,
                        'context_page_corresp': context_page_corresp,
                        'answers': answers,
-                    #    'answer_page_idx': answer_page_idx,
+                       'answer_page_idx': answer_page_idx,
                        'num_pages': num_pages
                        }
 
-        # if self.use_images:
-        #     sample_info['image_names'] = image_names
-        #     sample_info['images'] = images
+        if self.use_images:
+            sample_info['image_names'] = image_names
+            sample_info['images'] = images
 
-        # if self.get_raw_ocr_data:
-        #     sample_info['words'] = words
-        #     sample_info['boxes'] = boxes
+        if self.get_raw_ocr_data:
+            sample_info['words'] = words
+            sample_info['boxes'] = boxes
 
-        # else:  # Information for extractive models
-        #     sample_info['start_indxs'] = start_idxs
-        #     sample_info['end_indxs'] = end_idxs
+        else:  # Information for extractive models
+            sample_info['start_indxs'] = start_idxs
+            sample_info['end_indxs'] = end_idxs
 
-        # if self.get_doc_id:
-        #     sample_info['doc_id'] = [record['image_name'][page_ix] for page_ix in range(first_page, last_page)]
+        if self.get_doc_id:
+            sample_info['doc_id'] = [record['image_name'][page_ix] for page_ix in range(first_page, last_page)]
 
         return sample_info
 
@@ -202,32 +201,32 @@ class MPDocVQA(Dataset):
 
     def get_pages(self, sample_info):
         # TODO implement margins
-        # answer_page = sample_info['answer_page_idx']
-        document_pages = 1
-        # if document_pages <= self.max_pages:
-        #     first_page, last_page = 0, document_pages
+        answer_page = sample_info['answer_page_idx']
+        document_pages = sample_info['imdb_doc_pages']
+        if document_pages <= self.max_pages:
+            first_page, last_page = 0, document_pages
 
-        # else:
-        #     first_page_lower_bound = max(0, answer_page-self.max_pages+1)
-        #     first_page_upper_bound = answer_page
-        #     first_page = random.randint(first_page_lower_bound, first_page_upper_bound)
-        #     last_page = first_page + self.max_pages
+        else:
+            first_page_lower_bound = max(0, answer_page-self.max_pages+1)
+            first_page_upper_bound = answer_page
+            first_page = random.randint(first_page_lower_bound, first_page_upper_bound)
+            last_page = first_page + self.max_pages
 
-        #     if last_page > document_pages:
-        #         last_page = document_pages
-        #         first_page = last_page-self.max_pages
+            if last_page > document_pages:
+                last_page = document_pages
+                first_page = last_page-self.max_pages
 
-        #     try:
-        #         assert(answer_page in range(first_page, last_page))  # answer page is in selected range.
-        #         assert(last_page-first_page == self.max_pages)  # length of selected range is correct.
-        #     except:
-        #         assert (answer_page in range(first_page, last_page))  # answer page is in selected range.
-        #         assert (last_page - first_page == self.max_pages)  # length of selected range is correct.
-        # # print("[{:d} <= {:d} < {:d}][{:d} + {:d}]".format(first_page, answer_page, last_page, len(range(first_page, last_page)), padding_pages))
-        # assert(answer_page in range(first_page, last_page))
-        # assert(first_page >= 0)
-        # assert(last_page <= document_pages)
-        first_page, last_page = 0, document_pages
+            try:
+                assert(answer_page in range(first_page, last_page))  # answer page is in selected range.
+                assert(last_page-first_page == self.max_pages)  # length of selected range is correct.
+            except:
+                assert (answer_page in range(first_page, last_page))  # answer page is in selected range.
+                assert (last_page - first_page == self.max_pages)  # length of selected range is correct.
+        # print("[{:d} <= {:d} < {:d}][{:d} + {:d}]".format(first_page, answer_page, last_page, len(range(first_page, last_page)), padding_pages))
+        assert(answer_page in range(first_page, last_page))
+        assert(first_page >= 0)
+        assert(last_page <= document_pages)
+
         return first_page, last_page
 
 
