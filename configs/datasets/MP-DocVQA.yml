@@ -1,6 +1,6 @@
 dataset_name: MP-DocVQA
 # imdb_dir: /SSD2/Datasets/MP-DocVQA/imdb  # /imdb/collection/imdb_train.npy
-imdb_dir: /inputdata/imdb/collection
+imdb_dir: /input_data/imdb/collection
 # images_dir: /SSD2/Datasets/MP-DocVQA/images
-images_dir: /inputdata/images
+images_dir: /input_data/images
 page_retrieval: Oracle  # Oracle / Concat / Logits / Custom (for Hierarchical methods (Hi-LayoutLMv3, Hi-LT5, Hi-VT5)
