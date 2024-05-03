@@ -52,7 +52,7 @@ class MPDocVQA(Dataset):
         question = record['question']
         answers = list(set(answer.lower() for answer in record['answers']))
         # answer_page_idx = record['answer_page_idx']
-        # num_pages = record['imdb_doc_pages']
+        num_pages = 1
 
         # if self.page_retrieval == 'oracle':
         #     context = ' '.join([word.lower() for word in record['ocr_tokens'][answer_page_idx]])
@@ -161,9 +161,9 @@ class MPDocVQA(Dataset):
                        'questions': question,
                     #    'contexts': context,
                     #    'context_page_corresp': context_page_corresp,
-                       'answers': answers
+                       'answers': answers,
                     #    'answer_page_idx': answer_page_idx,
-                    #    'num_pages': num_pages
+                       'num_pages': num_pages
                        }
 
         # if self.use_images:
