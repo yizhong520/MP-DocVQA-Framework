@@ -237,4 +237,4 @@ def mpdocvqa_collate_fn(batch):  # It's actually the same as in SP-DocVQA...
 
 if __name__ == '__main__':
 
-    mp_docvqa = MPDocVQA("/SSD/Datasets/DocVQA/Task1/pythia_data/imdb/collection", split='val')
+    mp_docvqa = MPDocVQA("/input_data/imdb/collection", split='val')
