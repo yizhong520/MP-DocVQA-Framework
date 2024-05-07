@@ -14,7 +14,8 @@ class MPDocVQA(Dataset):
         data = np.load(os.path.join(imbd_dir, "imdb_{:s}.npy".format(split)), allow_pickle=True)
         self.header = data[0]
         self.imdb = data[1:]
-
+        print("THIS IS THE DATA")
+        print(data)
         print("THIS IS THE IMBD PRINTING CHECK")
         print(self.imdb)
 
