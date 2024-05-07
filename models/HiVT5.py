@@ -662,6 +662,9 @@ class Proxy_HiVT5:
 
                 else:
                     context_boxes = torch.tensor(padding_box)
+                
+                print("context_boxes shape:", context_boxes.shape)
+                print("context_boxes * 1000 shape:", (context_boxes * 1000).shape)
 
                 all_boxes[batch_idx, page_idx, :self.page_tokens] = torch.tensor(page_token_box)
                 all_boxes[batch_idx, page_idx, self.page_tokens: self.page_tokens + len(pretext_boxes)] = pretext_boxes
