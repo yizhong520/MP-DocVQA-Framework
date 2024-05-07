@@ -20,7 +20,7 @@ def run_sample(data_loader, model):
             outputs, pred_answers, pred_answer_page, answer_conf = model.forward(batch, return_pred_answer=True)
 
         print("REACHED HERE")
-        
+
         predictions.append({
             "outputs": outputs,
             "pred_answers": pred_answers,
@@ -37,6 +37,8 @@ if __name__ == '__main__':
     start_time = time.time()
 
     dataset = build_dataset(config, 'val')
+    print("Dataset size:", len(dataset))
+    
     val_data_loader = DataLoader(dataset, batch_size=config['batch_size'], shuffle=False, collate_fn=singlepage_docvqa_collate_fn)
 
     model = build_model(config)

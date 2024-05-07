@@ -1,8 +1,8 @@
 save_dir: save/
 model_name: Hi-VT5
-# model_weights: t5-base
+model_weights: t5-base
 # model_weights: weights/hivt5_custom_mp-docvqa__best.ckpt
-model_weights: rubentito/hivt5-base-mpdocvqa
+# model_weights: rubentito/hivt5-base-mpdocvqa
 freeze_encoder: False
 page_tokens: 1
 device: cpu
@@ -24,7 +24,7 @@ visual_module:
 training_parameters:
   max_pages: 1
   lr: 2e-4  # 2e-4
-  batch_size: 2
+  batch_size: 1
   train_epochs: 10
   warmup_iterations: 1000
   seed: 42
