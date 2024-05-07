@@ -19,6 +19,8 @@ def run_sample(data_loader, model):
         with torch.no_grad():
             outputs, pred_answers, pred_answer_page, answer_conf = model.forward(batch, return_pred_answer=True)
 
+        print("REACHED HERE")
+        
         predictions.append({
             "outputs": outputs,
             "pred_answers": pred_answers,
