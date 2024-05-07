@@ -15,6 +15,9 @@ class MPDocVQA(Dataset):
         self.header = data[0]
         self.imdb = data[1:]
 
+        print("THIS IS THE IMBD PRINTING CHECK")
+        print(self.imdb)
+
         self.page_retrieval = page_retrieval.lower()
         assert(self.page_retrieval in ['oracle', 'concat', 'logits', 'custom'])
 
