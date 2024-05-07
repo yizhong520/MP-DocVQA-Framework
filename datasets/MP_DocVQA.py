@@ -144,7 +144,8 @@ class MPDocVQA(Dataset):
 
                 print("This are the page names:", record['image_name'])
                 print("This is the page name:", "{:s}.jpg".format(record['image_name'][page_ix]))
-                image_names.append(os.path.join(self.images_dir, "{:s}.jpg".format(record['image_name'][page_ix])))
+                ## REMEBER TO REVISE IT BACK BY ADDING "{:s}.jpg".format(record['image_name'][page_ix])
+                image_names.append(os.path.join(self.images_dir, "{:s}.jpg".format(record['image_name'])))
 
             context_page_corresp = None
 
