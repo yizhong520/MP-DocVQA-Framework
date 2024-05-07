@@ -126,6 +126,8 @@ class MPDocVQA(Dataset):
 
         elif self.page_retrieval == 'custom':
             first_page, last_page = self.get_pages(record)
+            print("This is the first page:", first_page)
+            print("This is the last page:", last_page)
             answer_page_idx = answer_page_idx - first_page
             num_pages = len(range(first_page, last_page))
 
@@ -135,9 +137,13 @@ class MPDocVQA(Dataset):
             image_names = []
 
             for page_ix in range(first_page, last_page):
+                print("This is the page_ix:", page_ix)
                 words.append([word.lower() for word in record['ocr_tokens'][page_ix]])
                 boxes.append(np.array(record['ocr_normalized_boxes'][page_ix], dtype=np.float32))
                 context.append(' '.join([word.lower() for word in record['ocr_tokens'][page_ix]]))
+
+                print("This are the page names:", record['image_name'])
+                print("This is the page name:", "{:s}.jpg".format(record['image_name'][page_ix]))
                 image_names.append(os.path.join(self.images_dir, "{:s}.jpg".format(record['image_name'][page_ix])))
 
             context_page_corresp = None
